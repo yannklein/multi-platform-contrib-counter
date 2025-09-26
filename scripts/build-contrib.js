@@ -5,9 +5,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 // --- Config (env) ---
-const GH_USERNAME = process.env.GH_USERNAME; 
+const GH_USERNAME = "yannklein"; 
 const GH_TOKEN = process.env.GH_PAT || process.env.GITHUB_TOKEN || "";
-const GITLAB_USERNAME = process.env.GITLAB_USERNAME; 
+const GITLAB_USERNAME = "yannklein"; 
 
 if (!GH_USERNAME || !GITLAB_USERNAME) {
   console.error("Missing GH_USERNAME or GITLAB_USERNAME env vars.");
@@ -130,7 +130,7 @@ function computeLevels(values) {
 }
 
 // --- Render SVG (GitHub-like grid) ---
-function renderSVG(levels) {
+function renderSVG(levels, counts, totals) {
   // Colors (light -> dark)
   const palette = ["#ebedf0", "#c6e48b", "#7bc96f", "#239a3b", "#196127"];
 
@@ -147,9 +147,10 @@ function renderSVG(levels) {
 
   // cell size & gaps
   const cell = 10, gap = 2;
+  const headerH = 26; // space for the "Total..." label
   const weeks = Math.ceil((end - start) / (1000 * 60 * 60 * 24 * 7)) + 1;
   const width = weeks * (cell + gap) + gap;
-  const height = 7 * (cell + gap) + gap;
+  const height = headerH + 7 * (cell + gap) + gap;
 
   let rects = "";
   let cursor = new Date(start);
@@ -157,20 +158,26 @@ function renderSVG(levels) {
     for (let d = 0; d < 7; d++) {
       const key = iso(cursor);
       const lvl = levels[key] ?? 0;
+      const cnt = counts[key] ?? 0;
       const x = gap + w * (cell + gap);
-      const y = gap + d * (cell + gap);
+      const y = headerH + gap + d * (cell + gap); // shift down by header
       const fill = palette[lvl];
       rects += `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="2" ry="2" fill="${fill}">
-        <title>${key}: ${lvl}</title>
+        <title>${key}: ${cnt} contribution${cnt === 1 ? "" : "s"}</title>
       </rect>`;
       cursor.setDate(cursor.getDate() + 1);
     }
   }
 
+  const label = `Total: ${totals.total} (GH ${totals.gh} • GL ${totals.gl})`;
+  const dateRange = `${iso(fromDate)} → ${iso(today)}`;
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Combined contributions">
   <title>Combined GitHub + GitLab Contributions (last 365 days)</title>
   <rect width="100%" height="100%" fill="#fff"/>
+  <text x="${gap}" y="16" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="12" fill="#24292f">${label}</text>
+  <text x="${width - gap}" y="16" text-anchor="end" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="11" fill="#57606a">${dateRange}</text>
   ${rects}
 </svg>`;
 }
@@ -178,14 +185,23 @@ function renderSVG(levels) {
 (async () => {
   try {
     const base = dateRangeMap(fromDate, today);
-    const [gh, gl] = await Promise.all([
+    const [ghMap, glMap] = await Promise.all([
       fetchGitHubCalendar(GH_USERNAME),
       fetchGitLabCalendar(GITLAB_USERNAME)
     ]);
 
-    const merged = mergeCalendars(base, gh, gl);
+    const merged = mergeCalendars(base, ghMap, glMap);
     const levels = computeLevels(merged);
-    const svg = renderSVG(levels);
+
+    // Totals
+    const sum = (obj) => Object.values(obj).reduce((a, b) => a + (b || 0), 0);
+    const totals = {
+      gh: sum(ghMap),
+      gl: sum(glMap),
+      total: sum(merged)
+    };
+
+    const svg = renderSVG(levels, merged, totals);
 
     const outPath = path.join(process.cwd(), "public", "contrib.svg");
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
