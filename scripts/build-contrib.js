@@ -5,9 +5,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 // --- Config (env) ---
-const GH_USERNAME = "yannklein"
-const GH_TOKEN = ""; // optional (higher rate limits)
-const GITLAB_USERNAME = "yannklein"
+const GH_USERNAME = process.env.GH_USERNAME; 
+const GH_TOKEN = process.env.GH_PAT || process.env.GITHUB_TOKEN || "";
+const GITLAB_USERNAME = process.env.GITLAB_USERNAME; 
 
 if (!GH_USERNAME || !GITLAB_USERNAME) {
   console.error("Missing GH_USERNAME or GITLAB_USERNAME env vars.");
