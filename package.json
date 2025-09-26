@@ -1,0 +1,20 @@
+{
+  "name": "multi-platform-contrib-counter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./scripts/build-contrib.js",
+  "type": "module",
+  "scripts": {
+    "test": "node build-contrib.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yannklein/multi-platform-contrib-counter.git"
+  },
+  "author": "Yann Klein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yannklein/multi-platform-contrib-counter/issues"
+  },
+  "homepage": "https://github.com/yannklein/multi-platform-contrib-counter#readme"
+}

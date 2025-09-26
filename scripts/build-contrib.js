@@ -14,6 +14,11 @@ if (!GH_USERNAME || !GITLAB_USERNAME) {
   process.exit(1);
 }
 
+if (!GH_TOKEN) {
+  console.error("Missing GitHub token (GH_PAT / GITHUB_TOKEN). Aborting to avoid 403.");
+  process.exit(1);
+}
+
 const today = new Date();
 const fromDate = new Date(today);
 fromDate.setDate(today.getDate() - 364);
