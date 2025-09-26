@@ -6,7 +6,7 @@ import path from "node:path";
 
 // --- Config (env) ---
 const GH_USERNAME = process.env.GH_USERNAME; 
-const GH_TOKEN = process.env.GH_PAT || process.env.GITHUB_TOKEN || "";
+const GH_TOKEN = process.env.GH_TOKEN || "";
 const GITLAB_USERNAME = process.env.GITLAB_USERNAME; 
 
 if (!GH_USERNAME || !GITLAB_USERNAME) {
