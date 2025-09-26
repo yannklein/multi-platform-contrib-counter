@@ -2,30 +2,56 @@ name: Build combined contributions
 
 on:
   schedule:
-    - cron: "23 2 * * *"  # daily at 02:23 UTC
+    - cron: "23 2 * * *"   # daily at 02:23 UTC
   workflow_dispatch: {}
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: production 
+    environment: production          # <-- binds env-scoped vars/secrets
     permissions:
-      contents: write
+      contents: write                # needed to commit the SVG
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm init -y
-      - run: npm install
+
+      # Quick sanity: are env-scoped vars/secrets actually available?
+      - name: Debug env resolution
+        run: |
+          echo "Environment bound: ${{ job.environment }}"
+          echo "Has GH_USERNAME: ${{ vars.GH_USERNAME != '' }}"
+          echo "Has GITLAB_USERNAME: ${{ vars.GITLAB_USERNAME != '' }}"
+          echo "Has GH_PAT secret: ${{ secrets.GH_PAT != '' }}"
+          echo "GITHUB_TOKEN exists (auto): true"
+
+      # Verify the token really authenticates against GitHub GraphQL
+      - name: Verify GitHub auth & rate limit
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TOKEN="${GH_PAT:-$GITHUB_TOKEN}"
+          curl -s -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+            -d '{ "query": "query{ viewer { login } rateLimit { limit remaining resetAt } }" }' \
+            https://api.github.com/graphql | jq .
+
+      # You don't need npm init/npm install for this script, but keep a no-op to ensure Node is usable
+      - name: Node version
+        run: node -v
+
       - name: Build SVG
         env:
-          GH_USERNAME: ${{ vars.GH_USERNAME }}
-          GITLAB_USERNAME: ${{ vars.GITLAB_USERNAME }}
-          GH_PAT: ${{ vars.GH_PAT }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USERNAME: ${{ vars.GH_USERNAME }}         # from environment: production
+          GITLAB_USERNAME: ${{ vars.GITLAB_USERNAME }} # from environment: production
+          GH_PAT: ${{ secrets.GH_PAT }}                # optional PAT
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}    # built-in token (fallback)
         run: node scripts/build-contrib.js
-      - name: Commit & push
+
+      - name: Commit & push SVG
         run: |
           if [[ -n "$(git status --porcelain)" ]]; then
             git config user.name "github-actions[bot]"
