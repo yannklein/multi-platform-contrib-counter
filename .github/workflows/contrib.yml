@@ -22,7 +22,7 @@ jobs:
         env:
           GH_USERNAME: ${{ vars.GH_USERNAME }}
           GITLAB_USERNAME: ${{ vars.GITLAB_USERNAME }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: node scripts/build-contrib.js
       - name: Commit & push
         run: |
