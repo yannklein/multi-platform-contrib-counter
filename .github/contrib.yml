@@ -1,0 +1,37 @@
+name: Build combined contributions
+
+on:
+  schedule:
+    - cron: "23 2 * * *"  # daily at 02:23 UTC
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm init -y
+      - run: npm install
+      - name: Build SVG
+        env:
+          GH_USERNAME: ${{ vars.GH_USERNAME }}
+          GITLAB_USERNAME: ${{ vars.GITLAB_USERNAME }}
+          # Optional: if you add a PAT to increase rate limits / access, set GH_PAT secret.
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: node scripts/build-contrib.js
+      - name: Commit & push
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add public/contrib.svg
+            git commit -m "chore: update combined contributions SVG"
+            git push
+          else
+            echo "No changes to commit."
+          fi
