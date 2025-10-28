@@ -2,8 +2,8 @@
 <svg width="650" height="112" viewBox="0 0 650 112" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Combined contributions">
   <title>Combined GitHub + GitLab Contributions (last 365 days)</title>
   <rect width="100%" height="100%" fill="#fff"/>
-  <text x="2" y="16" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="12" fill="#24292f">Total: 1610 (GH 734 • GL 876)</text>
-  <text x="648" y="16" text-anchor="end" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="11" fill="#57606a">2024-10-28 → 2025-10-27</text>
+  <text x="2" y="16" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="12" fill="#24292f">Total: 1615 (GH 739 • GL 876)</text>
+  <text x="648" y="16" text-anchor="end" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="11" fill="#57606a">2024-10-29 → 2025-10-28</text>
   <rect x="2" y="28" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
         <title>2024-10-27: 0 contributions</title>
       </rect><rect x="2" y="40" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
@@ -734,8 +734,8 @@
         <title>2025-10-25: 0 contributions</title>
       </rect><rect x="626" y="28" width="10" height="10" rx="2" ry="2" fill="#239a3b">
         <title>2025-10-26: 3 contributions</title>
-      </rect><rect x="626" y="40" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
-        <title>2025-10-27: 0 contributions</title>
+      </rect><rect x="626" y="40" width="10" height="10" rx="2" ry="2" fill="#239a3b">
+        <title>2025-10-27: 5 contributions</title>
       </rect><rect x="626" y="52" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
         <title>2025-10-28: 0 contributions</title>
       </rect><rect x="626" y="64" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
