@@ -2,8 +2,8 @@
 <svg width="650" height="112" viewBox="0 0 650 112" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Combined contributions">
   <title>Combined GitHub + GitLab Contributions (last 365 days)</title>
   <rect width="100%" height="100%" fill="#fff"/>
-  <text x="2" y="16" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="12" fill="#24292f">Total: 1826 (GH 783 • GL 1043)</text>
-  <text x="648" y="16" text-anchor="end" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="11" fill="#57606a">2024-12-18 → 2025-12-17</text>
+  <text x="2" y="16" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="12" fill="#24292f">Total: 1843 (GH 794 • GL 1049)</text>
+  <text x="648" y="16" text-anchor="end" font-family="system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif" font-size="11" fill="#57606a">2024-12-19 → 2025-12-18</text>
   <rect x="2" y="28" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
         <title>2024-12-15: 0 contributions</title>
       </rect><rect x="2" y="40" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
@@ -638,10 +638,10 @@
         <title>2025-10-26: 3 contributions</title>
       </rect><rect x="542" y="40" width="10" height="10" rx="2" ry="2" fill="#239a3b">
         <title>2025-10-27: 5 contributions</title>
-      </rect><rect x="542" y="52" width="10" height="10" rx="2" ry="2" fill="#7bc96f">
-        <title>2025-10-28: 2 contributions</title>
-      </rect><rect x="542" y="64" width="10" height="10" rx="2" ry="2" fill="#7bc96f">
-        <title>2025-10-29: 1 contribution</title>
+      </rect><rect x="542" y="52" width="10" height="10" rx="2" ry="2" fill="#239a3b">
+        <title>2025-10-28: 4 contributions</title>
+      </rect><rect x="542" y="64" width="10" height="10" rx="2" ry="2" fill="#239a3b">
+        <title>2025-10-29: 4 contributions</title>
       </rect><rect x="542" y="76" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
         <title>2025-10-30: 0 contributions</title>
       </rect><rect x="542" y="88" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
@@ -738,8 +738,8 @@
         <title>2025-12-15: 0 contributions</title>
       </rect><rect x="626" y="52" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
         <title>2025-12-16: 0 contributions</title>
-      </rect><rect x="626" y="64" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
-        <title>2025-12-17: 0 contributions</title>
+      </rect><rect x="626" y="64" width="10" height="10" rx="2" ry="2" fill="#196127">
+        <title>2025-12-17: 12 contributions</title>
       </rect><rect x="626" y="76" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
         <title>2025-12-18: 0 contributions</title>
       </rect><rect x="626" y="88" width="10" height="10" rx="2" ry="2" fill="#ebedf0">
